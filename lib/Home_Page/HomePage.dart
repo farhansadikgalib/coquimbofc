@@ -65,22 +65,22 @@ class _HomePageState extends State<HomePage> {
     return (await showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        title: new Text('Are you sure you want to exit?',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-        // content: new Text(''),
+        title: new Text('Do you want to exit Coquimbo FC?',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+       //  content: new Text(''),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: new Text(
               'No',
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.green[800]),
+              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.lightGreenAccent),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             child: new Text(
               'Yes',
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.red[800]),
-            ),
+              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.orange),
+            )
           ),
         ],
       ),
@@ -121,53 +121,6 @@ class _HomePageState extends State<HomePage> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Column(
-            children: [
-              Text(
-                'Camera Competitions',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontFamily: "Poppins",
-                  // fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                _webViewController?.goBack();
-              },
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                _webViewController?.goForward();
-              },
-              icon: Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(width: 5),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _webViewController?.reload();
-          },
-          child: Icon(
-            Icons.refresh, color: Colors.white,
-
-          ),
-          backgroundColor: Colors.black,
-        ),
         body: SafeArea(
           child: Container(
             child: Column(
