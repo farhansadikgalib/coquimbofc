@@ -58,10 +58,10 @@ class _SplashScreenPageState extends State<SplashScreenPage>
   @override
   Widget build(BuildContext context) {
 
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //   statusBarColor: Color.fromRGBO(14, 129, 154,1),
-    //   statusBarBrightness: Brightness.dark,
-    // ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color.fromRGBO(14, 129, 154,1),
+      statusBarBrightness: Brightness.dark,
+    ));
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(14, 129, 154,1),
@@ -69,10 +69,14 @@ class _SplashScreenPageState extends State<SplashScreenPage>
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+
+          Text("Bienvenidos",style:TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.white,),textAlign: TextAlign.center,),
+          SizedBox(height: 30,),
+
           Center(
             child: Container(
-                height: 200,
-                width: 200,
+                height: 150,
+                width: 150,
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Image.asset(
@@ -80,15 +84,26 @@ class _SplashScreenPageState extends State<SplashScreenPage>
                   ),
                 )),
           ),
+          SizedBox(height: 25,),
           Padding(
             padding: const EdgeInsets.only(left: 100,right: 100,top: 15),
             child: Text("La Film Commission Coquimbo es una corporación sin fines de lucro, que tiene como objetivo promover y facilitar los rodajes en toda la Región de Coquimbo y de estimular el área audiovisual y sus servicios derivados en todo el territorio.",
                 style: TextStyle(fontSize: 16,color: Colors.white,),textAlign: TextAlign.center,),
           ),
           SizedBox(
-            height: 75,
+            height: 20,
           ),
 
+          Center(
+            child: Container(
+                width: 250,
+                child: Image.asset(
+                  "assets/sponsor.png",
+                )),
+          ),
+          SizedBox(
+            height: 40,
+          ),
           SpinKitPulse(
             color: Colors.white,
             size: 25.0,
@@ -97,9 +112,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>
           ),
 
 
-          SizedBox(
-            height: 10,
-          ),
+
           // _AnimatedLiquidLinearProgressIndicator(),
         ],
       ),

@@ -64,35 +64,8 @@ class _HomePageState extends State<HomePage> {
 
   }
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        title: new Text('Exit MemoPie',style: TextStyle(fontFamily: "Poppins"),),
-        content: new Text('Are you sure wanted to exit this?',),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: new Text(
-              'No',
-              style: TextStyle(color: Colors.green,fontFamily: "Poppins"),
-            ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: new Text(
-              'Yes',
-              style: TextStyle(color: Colors.red,fontFamily: "Poppins"),
-            ),
-          ),
-        ],
-      ),
-    )) ??
-        false;
-  }
 
   InAppWebViewController? _webViewController;
-  // double progress = 0;
   String url = '';
 
   final GlobalKey webViewKey = GlobalKey();
@@ -130,8 +103,6 @@ class _HomePageState extends State<HomePage> {
     return OnBackPressed(
       perform: (){
         _webViewController!.goBack();
-
-
       },
       child: Scaffold(
         body: SafeArea(
