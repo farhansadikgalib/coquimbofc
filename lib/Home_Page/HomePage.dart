@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:back_pressed/back_pressed.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:coquimbofc/Check_Connection/No%20Internet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,13 +26,13 @@ class _HomePageState extends State<HomePage> {
 
 
 
-
   @override
   void initState() {
     super.initState();
 
+
     pullToRefreshController = PullToRefreshController(
-      options: PullToRefreshOptions(color: Colors.blueAccent),
+      options: PullToRefreshOptions(color: Colors.blue),
       onRefresh: () async {
         if (Platform.isAndroid) {
           _webViewController?.reload();
@@ -48,6 +50,7 @@ class _HomePageState extends State<HomePage> {
             context,
             MaterialPageRoute(builder: (context) => No_Internet_Connection()), (route) => false );
       }else if(previous == ConnectivityResult.none){
+        // internet conn
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => No_Internet_Connection()), (route) => false );
@@ -65,22 +68,22 @@ class _HomePageState extends State<HomePage> {
     return (await showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        title: new Text('Do you want to exit Coquimbo FC?',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-       //  content: new Text(''),
+        title: new Text('Exit MemoPie',style: TextStyle(fontFamily: "Poppins"),),
+        content: new Text('Are you sure wanted to exit this?',),
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: new Text(
               'No',
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.lightGreenAccent),
+              style: TextStyle(color: Colors.green,fontFamily: "Poppins"),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             child: new Text(
               'Yes',
-              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.orange),
-            )
+              style: TextStyle(color: Colors.red,fontFamily: "Poppins"),
+            ),
           ),
         ],
       ),
@@ -89,7 +92,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   InAppWebViewController? _webViewController;
-  double progress = 0;
+  // double progress = 0;
   String url = '';
 
   final GlobalKey webViewKey = GlobalKey();
@@ -98,6 +101,7 @@ class _HomePageState extends State<HomePage> {
         javaScriptEnabled: true,
         useShouldOverrideUrlLoading: true,
         useOnDownloadStart: true,
+        javaScriptCanOpenWindowsAutomatically: true,
       ),
       android: AndroidInAppWebViewOptions(
         initialScale: 100,
@@ -118,21 +122,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color.fromRGBO(14, 129, 154,1),
+      statusBarBrightness: Brightness.dark,
+    ));
+
+    return OnBackPressed(
+      perform: (){
+        _webViewController!.goBack();
+
+
+      },
       child: Scaffold(
         body: SafeArea(
           child: Container(
             child: Column(
               children: [
-                // progress < 1.0
-                //     ? LinearProgressIndicator(
-                //         value: progress,
-                //         backgroundColor: Colors.white,
-                //         valueColor:
-                //             AlwaysStoppedAnimation<Color>(Colors.blueAccent!),
-                //       )
-                //     : Center(),
                 Expanded(
                   child: InAppWebView(
                     key: webViewKey,
@@ -172,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                         pullToRefreshController.endRefreshing();
                       }
                       setState(() {
-                         this.progress = progress / 100;
+                        // this.progress = progress / 100;
                         urlController.text = this.url;
                       });
                     },
