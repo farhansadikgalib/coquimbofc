@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:coquimbofc/Check_Connection/No%20Internet.dart';
+import 'package:coquimbofc/Check_Connection/check_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
